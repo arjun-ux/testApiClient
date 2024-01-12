@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Http;
 
 class CekOngkirController extends Controller
 {
-    // index
-    public function index()
+    // index province
+    public function indexProvince()
     {
         $key = env('API_KEY');
         $province = $this->get_province($key);
@@ -19,6 +19,27 @@ class CekOngkirController extends Controller
             return view('cekongkir.index', ['province' => $province ]);
         }else{
             return response()->json(['status' => 'failed', 'message'=>'Failed to load province']);
+        }
+    }
+    // private function getProvinsi all
+    private function get_province($key)
+    {
+        $client = new Client();
+        try {
+            $response = $client->get("https://api.rajaongkir.com/starter/province",[
+                'headers' => [
+                    "key" => $key,
+                    ]
+            ]);
+            $response_data = json_decode($response->getBody(), true);
+            // dd($response_data);
+            if ($response_data['rajaongkir']['status']['code'] == 200) {
+                return $response_data['rajaongkir']['results'];
+            }else{
+                return false;
+            }
+        } catch (\Throwable $e) {
+            return false;
         }
     }
     // ambil data provinsi dari api berdasarkan id yang di input
@@ -43,26 +64,20 @@ class CekOngkirController extends Controller
         $result = json_decode($response->getBody(), true);
         return isset($result['rajaongkir']['results']) ? $result['rajaongkir']['results'] : false;
     }
-
-    // private function getProvinsi all
-    private function get_province($key)
+    // index city
+    public function indexcity()
     {
-        $client = new Client();
-        try {
-            $response = $client->get("https://api.rajaongkir.com/starter/province",[
-                'headers' => [
-                    "key" => $key,
-                    ]
-            ]);
-            $response_data = json_decode($response->getBody(), true);
-            // dd($response_data);
-            if ($response_data['rajaongkir']['status']['code'] == 200) {
-                return $response_data['rajaongkir']['results'];
-            }else{
-                return false;
-            }
-        } catch (\Throwable $e) {
-            return false;
+        $key = env('API_KEY');
+        $city = HTTP::get("https://api.rajaongkir.com/starter/province",[
+            'header' => [
+                'Key'=>$key
+            ]
+        ]);
+        dd($city);
+        if ($city) {
+            return view('cekongkir.index', ['city' => $city ]);
+        }else{
+            return response()->json(['status' => 'failed', 'message'=>'Failed to load city']);
         }
     }
 

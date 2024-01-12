@@ -26,5 +26,6 @@ Route::get('/login', [ApiLoginController::class, 'loginApi']);
 Route::post('/login', [ApiLoginController::class, 'doLoginApi'])->name('dologin');
 
 
-Route::get('/ongkir',[CekOngkirController::class,'index']);
+Route::get('/ongkir',[CekOngkirController::class,'indexProvince']);
 Route::get('/ongkir/{id}',[CekOngkirController::class,'getIdprovince']);
+Route::get('/ongkir/city',[CekOngkirController::class,'indexcity']);
