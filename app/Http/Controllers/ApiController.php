@@ -9,10 +9,10 @@ class ApiController extends Controller
 {
     public function getDataFormApi()
     {
-        $datas = Http::get('http://localhost:8000/api/category');
-        // dd($datas);
-        $jsonData = $datas->json();
-        return $jsonData;
+        // $datas = Http::get('http://localhost:8000/api/category');
+        // // dd($datas);
+        // $jsonData = $datas->json();
+        // return $jsonData;
     }
 
     // json dikirim ke home blade

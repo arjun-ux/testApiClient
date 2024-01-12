@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CekOngkirController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ApiLoginController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,7 @@ Route::post('/data/create', [ApiController::class, 'storeData'])->name('store.da
 // login dengan api
 Route::get('/login', [ApiLoginController::class, 'loginApi']);
 Route::post('/login', [ApiLoginController::class, 'doLoginApi'])->name('dologin');
+
+
+Route::get('/ongkir',[CekOngkirController::class,'index']);
+Route::get('/ongkir/{id}',[CekOngkirController::class,'getIdprovince']);
